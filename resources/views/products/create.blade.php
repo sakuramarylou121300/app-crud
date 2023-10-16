@@ -8,6 +8,15 @@
     </head>
     <body>
         <h1>Create a Product</h1>
+        {{-- this is to show error --}}
+        @if($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{$errors}}</li>
+            @endforeach
+        </ul>
+            
+        @enderror
         <form method="post" action="{{route('product.store')}}">
                 @csrf
                 @method('post')

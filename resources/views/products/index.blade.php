@@ -7,6 +7,30 @@
     </head>
     <body>
         <h1>Product</h1>
-        <div>index</div>
+        {{-- these are the data in the database --}}
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+               <th>Description</th> 
+               <th>Edit</th>
+            </tr>
+            {{-- this is the data from the database access the variable products from controller --}}
+            @foreach($products as $product)
+                <tr>
+                    <td>{{$product->id}}</td>
+                    <td>{{$product->name}}</td>
+                    <td>{{$product->qty}}</td>
+                    <td>{{$product->price}}</td>
+                    <td>{{$product->description}}</td>
+                    <td>
+                        {{-- now here is the edit,   ['product' => $product] on this one the first is from the parameter product then the next one is from the foreach named product--}}
+                        <a href="{{route('product.edit', ['product' => $product])}}">Edit</a>
+                    </td>
+                </tr>
+            @endforeach
+        </table>
     </body>
 </html>
