@@ -32,8 +32,31 @@ class ProductController extends Controller
         //then return to index page when store done
         return redirect(route('product.index'));
     }
-
     public function edit(Product $product){
-        
+        return view('products.edit', ['product' => $product]);//the return is the name of the route in the web.php
+    }
+    public function update(Product $product, Request $request){
+        // dd($request->name);//request name
+        // this is validation
+        $data = $request->validate([
+            'name' => 'required',
+            'qty' => 'required|numeric',
+            'price' => 'required|decimal:0,2',//this means a 2 decimal
+            'description' => 'nullable'
+        ]);
+
+        //now store data in database
+        $product->update($data);
+
+        //then return to index page when store done
+        return redirect(route('product.index'))->with('success', 'Product updated successfully.');
+    }
+    public function destroy(Product $product){
+
+        //now store data in database
+        $product->delete();
+
+        //then return to index page when store done
+        return redirect(route('product.index'))->with('success', 'Product deleted successfully.');
     }
 }
